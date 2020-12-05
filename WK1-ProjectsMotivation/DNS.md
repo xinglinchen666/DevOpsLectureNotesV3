@@ -18,19 +18,13 @@ You can find a hosted zone created.
 ![Alt text](images/DNS3.png?raw=true)
 
 # Task 2: Set up DNS Delegation
-DNS and CDN are configured. The final step is to give your NS record to teacher via SSH so your DNS delegation will be set up.
 
 Note: the delegation is between your domain name ("your_name.jiangren.mooo.com") and jiangren.mooo.com.
 
-There is a simple automation to do it, but you need to be able to ssh the ec2 instance.
-Let us quickly go through SSH.md
-
-1. Go back to Route53 console, copy your NS record info and save it to a file. 
-![Alt text](images/DNS15.png?raw=true)
-2. Upload the file to the server via: `scp your_name.jiangren.mooo.com ec2-user@3.25.99.145:/home/ec2-user`
-3. Validate your NS record is updated via `dig NS your_name.jiangren.mooo.com`.
-4. Now, you should be able to see 403 unsafe visit error in Chrome browser.
-![Alt text](images/DNS16.png?raw=true)
+1. Go back to Route53 console, copy your NS record info. Note: it is your_name, not the name on the screen.
+![Alt text](images/dns-ns-names.png)
+2. Send the record to me.
+3. I will create a redirect from my subdomain to your subdomain. 
 
 # Task 3: Add CNAME with Certification
 1. Go back to AWS Cloudfront console: https://console.aws.amazon.com/cloudfront/home and select your Distribution.
