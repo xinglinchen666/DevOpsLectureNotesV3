@@ -47,10 +47,11 @@ This webhook will notify Jenkins when there is a push, PR or repository created.
 
 
 ## Step #9: Fork a repo with Jenkinsfile to your organisation
-Fork https://github.com/davisliu11/hello-Jenkinsfile
+Fork https://github.com/JiangRenDevOps/hello-Jenkinsfile into your organization.
 
 
-## Step #10: In Jenkins, you should see a job is created automatically
+## Step #10: In Jenkins, run "Scan Organization Now" in the organization view. 
+You should see a new repository being added into the organization, and a build job is created automatically for the "master" branch of the forked repository.
 ![Alt text](images/integrate-with-github-org-10.png?raw=true)
 
 
