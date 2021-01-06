@@ -20,6 +20,7 @@ Preferrablelly with your Github Organisation name.
 
 ## Step #3: Choose to add credential
 ![Alt text](images/integrate-with-github-org-03.png?raw=true)
+06/01/2021 update: to avoid Git auth error, avoid adding credential in this step and use anonymous user. Proceed to step 6.
 
 
 ## Step #4: Add your Github username/password
