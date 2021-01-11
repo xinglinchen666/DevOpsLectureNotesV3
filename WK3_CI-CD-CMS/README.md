@@ -53,7 +53,9 @@ Create beanstock environments in aws:
 You will need to update the `Jenkinsfile` and files under `deployment` folder accordingly.
 
 ## Task #5: Setup Github integration
-https://github.com/JiangRenDevOps/DevOpsLectureNotesV2/tree/master/WK8_CI-CD-Jekins/4.Integrate-with-Github-Org
+
+![Alt text](images/jenkins-blueocean-pipeline-02.png?raw=true)
+![Alt text](images/CI_CD_CMS_15.png?raw=true)
 
 ## Task #6: Play around
 Make changes and test the auto deployment
