@@ -17,3 +17,8 @@ Tip: given a path parameter, upload all the files under it to S3
 # Task 3: Update a new version of devops-cli in PyPi 
 
 Tip: Take a look at pypi.md
+
+# Task 4 [Optional]: Learn pandas and flask when you have time
+
+- https://pandas.pydata.org/
+- https://flask.palletsprojects.com/en/1.1.x/
