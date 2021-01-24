@@ -5,7 +5,6 @@ import logging
 import boto3
 
 logger = logging.getLogger(__name__)
-s3 = boto3.client('s3')
 
 
 @click.command()
@@ -35,6 +34,7 @@ def process(in_file: str,
 
 
 def upload_s3(in_file: str, bucket_name: str):
+    s3 = boto3.client('s3')
     data = open(in_file, "rb")
     response = s3.put_object(ACL='public-read',
                              Body=data,
