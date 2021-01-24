@@ -14,8 +14,6 @@ What we want to upload a file to https://gofile.io/api, which is a free server f
 We are going to need a few parameters:
 - input
 - server
-- email
-- password
 
 # Add the skeleton of the cmd
 Create a file named: click_demo.py
@@ -50,13 +48,9 @@ import click
               help="Path to the file to be processed.",
               )
 @click.option("--gofile", "server_url", help="gofile server",
-              flag_value='https://srv-file8.gofile.io',
+              flag_value='https://srv-store4.gofile.io',
               default=True
               )
-@click.option('--email', prompt=True,
-              default=lambda: os.environ.get('EMAIL', ''),
-              show_default='youremail@example.com')
-@click.password_option()
 @click.option('--verbose', is_flag=True, help="Verbose output for debugging")
 def process():
     ...
@@ -67,13 +61,11 @@ def process():
 ```python
 def process(in_file: str,
             server_url: str,
-            email: str,
-            password: str,
             verbose: bool):
     print("I'm a beautiful CLI ✨")
-    upload_to(in_file, server_url, email, password)
+    upload_to(in_file, server_url)
 
-def upload_to(in_file: str, server_url: str, email: str, password: str):
+def upload_to(in_file: str, server_url: str):
     print("start uploading the file")
 
 ```
@@ -84,10 +76,9 @@ We need to prepare the request to upload to the target server.
 First, we need to install requests, then we need to add a bit code
 
 ```python
-def upload_to(in_file: str, server_url: str, email: str, password: str):
+def upload_to(in_file: str, server_url: str):
     url = server_url + "/upload"
-    file = {'filesUploaded': open(in_file, 'rb')}
-    data = {'email': email, 'password': password}
+    file = {'file': open(in_file, 'rb')}
 
     r = requests.post(url=url, files=file, data=data)
 ```
@@ -97,7 +88,7 @@ Create a testing file e.g. index.html and move it under the folder as the script
 Good job! You should be able to get the code of working to upload. Please try
 
 ```bash
-python click_demo.py -i index.html --email <your email address> --verbose
+python click_demo.py -i index.html --verbose
 ```
 
 # Challenge 1: Add the logging for verbose mode
