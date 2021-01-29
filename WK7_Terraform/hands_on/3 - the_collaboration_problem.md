@@ -30,7 +30,7 @@ Terraform, as of v0.9, offers locking remote state management. To get it up and 
 ## Build the s3
 Let us create the bucket with your unique bucket name
 ```
-aws s3api create-bucket --bucket=terraform-remote-state-storage-s3-msu --region=us-east-1
+aws s3api create-bucket --bucket=terraform-remote-state-storage-s3-msu --region=ap-southeast-2
 ```
 result:
 ```
@@ -71,7 +71,7 @@ terraform {
   backend "s3" {
     encrypt = true
     bucket = "terraform-remote-state-storage-s3-msu"
-    region = "us-east-1"
+    region = "ap-southeast-2"
     key = "./terraform.tfstate"
     profile = "default"
   }
@@ -103,7 +103,7 @@ terraform {
   backend "s3" {
     encrypt = true
     bucket = "terraform-remote-state-storage-s3-msu"
-    region = "us-east-1"
+    region = "ap-southeast-2"
     key = "./terraform.tfstate"
     profile = "default"
     dynamodb_table = "terraform-state-lock-dynamodb"
@@ -111,7 +111,7 @@ terraform {
 }
 ```
 
-Now, let us check out: https://console.aws.amazon.com/s3/home?region=us-east-1
+Now, let us check out: https://console.aws.amazon.com/s3/home?region=ap-southeast-2
 
 Note: The "backend" is the interface that Terraform uses to store state, perform operations,
 see https://www.terraform.io/docs/backends

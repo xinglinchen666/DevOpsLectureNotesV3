@@ -11,7 +11,7 @@ s3 - host static files
 Cognito - authentication service
 
 API Gateway - Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. APIs act as the "front door" for applications to access data, business logic, or functionality from your backend services. Using API Gateway, you can create RESTful APIs and WebSocket APIs that enable real-time two-way communication applications. API Gateway supports containerized and serverless workloads, as well as web applications.
-              
+
 AWS Lambda -  AWS Lambda is a serverless compute service that runs your code in response to events and automatically manages the underlying compute resources for you.
 
 DynamoDB - NoSql Database Service, Scale to mass load/very low latency
@@ -19,7 +19,7 @@ DynamoDB - NoSql Database Service, Scale to mass load/very low latency
 ![Alt text](../images/simple_architecture.png?raw=true)
 
 Now, it is time to build our infrastructure; Let us build our hello world lambda function with api gateway via terraform
- 
+
 
 # Preparation
 Have AWS CLI installed
@@ -60,43 +60,38 @@ exports.handler = function(event, context, callback) {
     }
     callback(null, response)
 }
-``` 
+```
 zip the file to example.zip
 ```
-$ cd example
-$ zip ../example.zip main.js
+$ cd staging
+$ zip example.zip main.js
   adding: main.js (deflated 33%)
-$ cd ..
 ```
 
 create the s3; make sure you use a globally unique bucket name
 ```bash
-aws s3api create-bucket --bucket=terraform-serverless-msu --region=us-east-1
-{
-    "Location": "/terraform-serverless-msu"
-}
+aws s3api create-bucket --bucket=terraform-serverless-jrdevops-holly --region=ap-southeast-2 --create-bucket-configuration LocationConstraint=ap-southeast-2
 ```
 
 upload the lambda function to s3
 ```bash
-aws s3 cp example.zip s3://terraform-serverless-msu/v1.0.0/example.zip
-upload: ./example.zip to s3://terraform-serverless-msu/v1.0.0/example.zip
+aws s3 cp example.zip s3://terraform-serverless-jrdevops-holly/v1.0.0/example.zip
 ```
 Note: we hardcode the version as V1.0.0. Later we will expose it as a variable.
 
-## Build the configuration as code 
+## Build the configuration as code
 
-Let us start with setting up the main function. 
+Let us start with setting up the main function.
 
 Create a directory first.
 ```bash
-mkdir -p ./staging/services/backend_app
+mkdir -p ./services/backend_app
 ```
 Note: -p flag is to ensure to create parent directories as well
 
 Create the main.tf file
 ```
-touch ./staging/services/backend_app/main.tf
+touch ./services/backend_app/main.tf
 ```
 Provider - Set up the provider for our terraform
 A provider is responsible for understanding API interactions and exposing resources. Providers generally are an IaaS (e.g. Alibaba Cloud, AWS, GCP, Microsoft Azure, OpenStack), PaaS (e.g. Heroku), or SaaS services (e.g. Terraform Cloud, DNSimple, CloudFlare).
@@ -105,8 +100,8 @@ https://www.terraform.io/docs/providers/index.html
 Our provider is "aws"
 ```
 provider "aws" {
-  region                  = "us-east-1"
-  shared_credentials_file = "/Users/msu/.aws/credentials"
+  region                  = "ap-southeast-2"
+  shared_credentials_file = "/Users/holly/.aws/credentials"
   profile                 = "default"
 }
 ```
@@ -115,7 +110,7 @@ Note: Please replace `shared_credentials_file` with your own path.
 
 Now let us set up the lambda function. See
 ```
-touch ./staging/services/backend_app/lambda.tf
+touch ./services/backend_app/lambda.tf
 ```
 
 Resource - Resources are the most important element in the Terraform language. Each resource block describes one or more infrastructure objects, such as virtual networks, compute instances, or higher-level components such as DNS records.
@@ -125,7 +120,7 @@ resource "aws_lambda_function" "example" {
   function_name = "ServerlessExample"
 
   # The bucket name as created earlier with "aws s3api create-bucket"
-  s3_bucket = "terraform-serverless-msu"
+  s3_bucket = "terraform-serverless-jrdevops-holly"
   s3_key    = "v1.0.0/example.zip"
 
   # "main" is the filename within the zip file (main.js) and "handler"
@@ -174,7 +169,7 @@ If no arguments are given, the configuration in the current working directory is
 
 ![Alt text](../images/terraform_init.png?raw=true)
 
-Run it under `staging/services/backend_app` 
+Run it under `services/backend_app`
 ```
 terraform init
 ```
@@ -203,7 +198,7 @@ terraform plan
 
 Now, we should be able to invoke the lambda function via awscli
 ```bash
-aws lambda invoke --region=us-east-1 --function-name=ServerlessExample output.txt
+aws lambda invoke --region=ap-southeast-2 --function-name=ServerlessExample output.txt
 {
     "StatusCode": 200,
     "ExecutedVersion": "$LATEST"
@@ -214,7 +209,7 @@ aws lambda invoke --region=us-east-1 --function-name=ServerlessExample output.tx
 
 ## Configuring API Gateway
 
-Create a new file api_gateway.tf in the same directory as our lambda.tf from the previous step. 
+Create a new file api_gateway.tf in the same directory as our lambda.tf from the previous step.
 ![Alt text](../images/api_gateway.png?raw=true)
 
 First, configure the root "REST API" object, as follows:
@@ -297,7 +292,7 @@ With all of the above configuration changes in place, run terraform apply again 
 ```
 terraform apply
 ```
-After the creation steps are complete, the new objects will be visible in the https://console.aws.amazon.com/apigateway/home?region=us-east-1.
+After the creation steps are complete, the new objects will be visible in the https://console.aws.amazon.com/apigateway/home?region=ap-southeast-2.
 
 # Allowing API Gateway to Access Lambda
 
@@ -325,4 +320,3 @@ output "base_url" {
 ```
 terraform apply
 ```
-

@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     encrypt = true
     bucket = "terraform-remote-state-storage-s3-msu"
-    region = "us-east-1"
+    region = "ap-southeast-2"
     key = "./terraform.tfstate"
     profile = "default"
 
