@@ -4,3 +4,11 @@ build
 __pycache__
 dist
 *.egg-info
+
+### Terraform ###
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
