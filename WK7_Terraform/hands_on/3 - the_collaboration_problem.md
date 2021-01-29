@@ -1,5 +1,5 @@
 # Intro
-When your are building infrastructure with terraform config, a state file, called terraform.tfstat, gets generated locally in the local directory. This state file contains information about the infrastructure and configuration that terraform is managing. 
+When your are building infrastructure with terraform config, a state file, called terraform.tfstat, gets generated locally in the local directory. This state file contains information about the infrastructure and configuration that terraform is managing.
 
 ## Whats in the state file?
 The state file contains information about what real resources exist for each object defined in the terraform config files. For example, if you have a DNS zone resource created in your terraform config, then the state file contains info about the actual resource that was created on AWS.

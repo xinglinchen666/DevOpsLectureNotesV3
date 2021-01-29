@@ -61,4 +61,8 @@ resource "aws_api_gateway_deployment" "example" {
   stage_name  = "test"
 }
 
+<<<<<<< HEAD
 # Terraform apply and check https://console.aws.amazon.com/apigateway/home?region=ap-southeast-2
+=======
+# Terraform apply and check https://console.aws.amazon.com/apigateway/home?region=us-east-1
+>>>>>>> 287c99d47d79799ead60d2a4fc0b645184a494ff
