@@ -17,14 +17,12 @@ Variables - Input variables serve as parameters for a Terraform module, allowing
 Let us change the main.js to print `Hello World` and upload to s3 v1.0.1 folder
 
 ```
-$ cd example
-$ zip ../example.zip main.js
-updating: main.js (deflated 33%)
-$ cd ..
-$ aws s3 cp example.zip s3://terraform-serverless-msu/v1.0.1/example.zip
+$ cd staging
+$ zip example.zip main.js
+$ aws s3 cp example.zip s3://terraform-serverless-jrdevops-holly/v1.0.1/example.zip
 ```
 
-Create variables.tf in `./staging/services/backend_app` and Add the following:
+Create variables.tf in `./services/backend_app` and Add the following:
 ```
 variable "app_version" {
 }
@@ -36,7 +34,7 @@ resource "aws_lambda_function" "example" {
   function_name = "ServerlessExample"
 
   # The bucket name as created earlier with "aws s3api create-bucket"
-  s3_bucket = "terraform-serverless-example"
+  s3_bucket = "terraform-serverless-jrdevops-holly"
   s3_key    = "v${var.app_version}/example.zip"
   # (leave the remainder unchanged)
 }
@@ -103,31 +101,31 @@ staging
           └ main.tf
           └ lambda.tf
           └ api_gateway.tf
-          └ output.tf
+          └ outputs.tf
           └ variables.tf
 main.tf
-output.tf
+outputs.tf
 variables.tf
 ```
 
 - Create empty outputs.tf in `backend-app` folder
-- Copy the output from lambda.tf to output.tf
+- Remove the output section from api_gateway.tf to `backend-app/outputs.tf`
 
 ```
 output "base_url" {
   value = aws_api_gateway_deployment.example.invoke_url
 }
 ```
-- Create three empty files under `WK7_Terraform` directory
+- Create three empty files under `WK7_Terraform/hands_on` directory
 ```
 main.tf
-output.tf
+outputs.tf
 variables.tf
 ```
 
-Let us define the module that we would like to use 
+Let us define the module that we would like to use
 
-Add below into main.tf under `WK7_Terraform` directory
+Add below into `WK7_Terraform/hands_on/main.tf`
 ```
 module "myApp" {
   source = "./staging/services/backend_app"
@@ -135,11 +133,11 @@ module "myApp" {
 }
 ```
 
-Then we need to go to `WK7_Terraform` directory in terminal, and run `terraform init`
+Then we need to go to `WK7_Terraform/hands_on` directory in terminal, and run `terraform init`
 
 if you run terraform apply now, you will see errors that output and variables are not defined.
- 
-let us fill in the output.tf and variables.tf in the main path
+
+let us fill in the outputs.tf and variables.tf in the main path
 
 ```
 output "base_url" {
@@ -152,7 +150,7 @@ variable "app_version" {
 }
 ```
 
-and in the backend_app, the output.tf and variables.tf are defined like this
+and in the backend_app, the outputs.tf and variables.tf are defined like this
 
 ```
 output "base_url" {
@@ -165,6 +163,6 @@ variable "app_version" {
 }
 ```
 
-Without these two files, the upper layer output.tf and variables.tf cannot parse correctly
+Without these two files, the upper layer outputs.tf and variables.tf cannot parse correctly
 
-Now run `terraform apply` for the version 1.0.0
+Now run `terraform apply -var="app_version=1.0.0"` for the version 1.0.0

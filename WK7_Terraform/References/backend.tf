@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "terraform-remote-state-storage-s3-msu" {
-  bucket = "terraform-remote-state-storage-s3-msu"
+resource "aws_s3_bucket" "terraform-remote-state-storage-s3-holly" {
+  bucket = "terraform-remote-state-storage-s3-holly"
 
   versioning {
     enabled = true

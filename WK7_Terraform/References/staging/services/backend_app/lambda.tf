@@ -28,7 +28,7 @@ resource "aws_lambda_function" "example" {
   function_name = "ServerlessExample"
 
   # The bucket name as created earlier with "aws s3api create-bucket"
-  s3_bucket = "terraform-serverless-msu"
+  s3_bucket = "terraform-serverless-holly"
 
   # Change the version to be 1.0.0
   s3_key    = "v${var.app_version}/example.zip"

@@ -26,29 +26,18 @@ When working on a team, it is better to store this state file remotely so that m
 
 Terraform, as of v0.9, offers locking remote state management. To get it up and running in AWS create a terraform s3 backend, an s3 bucket and a dynamDB table.
 
+## Clear the state
 
-## Build the s3
+Let us destory the existing resource first
+`terraform destroy -var="app_version=1.0.0"`
+
+## Build the S3
 Let us create the bucket with your unique bucket name
 ```
-aws s3api create-bucket --bucket=terraform-remote-state-storage-s3-msu --region=ap-southeast-2
+aws s3api create-bucket --bucket=terraform-remote-state-storage-s3-holly --create-bucket-configuration LocationConstraint=ap-southeast-2
 ```
-result:
-```
-{
-    "Location": "/terraform-remote-state-storage-s3-msu"
-}
-```
-let us create a file called `backend.tf` in `WK7_Terraform` directory
-```
-resource "aws_s3_bucket" "terraform-remote-state-storage-s3-msu" {
-  bucket = "terraform-remote-state-storage-s3-msu"
 
-  versioning {
-    enabled = true
-  }
-
-}
-```
+let us create a file called `backend.tf` in `WK7_Terraform/hands_on` directory
 
 Next, you need to create a DynamoDB table to use for locking. DynamoDB is Amazon’s distributed key-value store. It supports strongly-consistent reads and conditional writes, which are all the ingredients you need for a distributed lock system. Moreover, it’s completely managed, so you don’t have any infrastructure to run yourself, and it’s inexpensive, with most Terraform usage easily fitting into the free tier.
 
@@ -65,12 +54,12 @@ resource "aws_dynamodb_table" "dynamodb-terraform-state-lock" {
 }
 ```
 
-and let us add the following to `terraform.tf`
+and let us create a file `/hands_on/terraform.tf` and add following to the file
 ```
 terraform {
   backend "s3" {
     encrypt = true
-    bucket = "terraform-remote-state-storage-s3-msu"
+    bucket = "terraform-remote-state-storage-s3-holly"
     region = "ap-southeast-2"
     key = "./terraform.tfstate"
     profile = "default"
@@ -78,31 +67,26 @@ terraform {
 }
 ```
 
-Let us destory the existing resource first
-`terraform destroy -var="app_version=1.0.0"`
+
 
 run `terraform init`, `terraform plan`, `terraform apply`
 
 Let us add some output to `output.tf`
 
 ```
-output "s3_bucket_arn" {
-  value       = aws_s3_bucket.terraform-remote-state-storage-s3-msu.arn
-  description = "The ARN of the S3 bucket"
-}
 output "dynamodb_table_name" {
   value       = aws_dynamodb_table.dynamodb-terraform-state-lock.name
   description = "The name of the DynamoDB table"
 }
 ```
 
-let us add the following dynamodb_table entry to the backend and rerun
+let us update the terraform.tf file wit the following and rerun
 `terraform init`, `terraform plan`, `terraform apply`
 ```
 terraform {
   backend "s3" {
     encrypt = true
-    bucket = "terraform-remote-state-storage-s3-msu"
+    bucket = "terraform-remote-state-storage-s3-holly"
     region = "ap-southeast-2"
     key = "./terraform.tfstate"
     profile = "default"
