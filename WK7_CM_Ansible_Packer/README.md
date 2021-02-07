@@ -56,3 +56,7 @@ ansible-playbook -i ../inventory.aws_ec2.yaml site.yaml
 
 ## Task #8: Install more software via Ansible and play around
 Install sth like Jenkins, Kubernetes, wordpress, nginx etc.
+
+# Homework
+
+Learn packer and run packer examples in the `packer` folder.
