@@ -3,12 +3,7 @@
 
 In this scenario, you use the AWS Command Line Interface (AWS CLI) to publish a single metric for a hypothetical application named  _GetStarted_. If you haven't already installed and configured the AWS CLI, see  [Getting Set Up with the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html)  in the  _AWS Command Line Interface User Guide_.
 
-**Tasks**
-
--   [Step 1: Define the Data Configuration](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/PublishMetrics.html#define-data-domain)
--   [Step 2: Add Metrics to CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/PublishMetrics.html#add-metrics-to-scenario)
--   [Step 3: Get Statistics from CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/PublishMetrics.html#GetStatistics)
--   [Step 4: View Graphs with the Console](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/PublishMetrics.html#ViewGraphs)
+# Tasks
 
 ## Step 1: Define the Data Configuration
 

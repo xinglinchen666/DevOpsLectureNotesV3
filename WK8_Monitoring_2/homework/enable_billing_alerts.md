@@ -7,13 +7,7 @@ Billing metric data is stored in the US East (N. Virginia) Region and reflects w
 
 You can choose to receive alerts by email when charges have exceeded a certain threshold. These alerts are triggered by CloudWatch and messages are sent using Amazon Simple Notification Service (Amazon SNS).
 
-**Tasks**
-
--   [Step 1: Enable Billing Alerts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/gs_monitor_estimated_charges_with_cloudwatch.html#gs_turning_on_billing_metrics)
--   [Step 2: Create a Billing Alarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/gs_monitor_estimated_charges_with_cloudwatch.html#gs_creating_billing_alarm)
--   [Step 3: Check the Alarm Status](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/gs_monitor_estimated_charges_with_cloudwatch.html#gs_checking_billing_alarm)
--   [Step 4: Edit a Billing Alarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/gs_monitor_estimated_charges_with_cloudwatch.html#gs_editing_billing_alarm)
--   [Step 5: Delete a Billing Alarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/gs_monitor_estimated_charges_with_cloudwatch.html#gs_deleting_billing_alarm)
+# Tasks
 
 ## Step 1: Enable Billing Alerts
 
