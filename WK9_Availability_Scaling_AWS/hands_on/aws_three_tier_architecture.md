@@ -89,6 +89,8 @@ Tip: Click View in Designer to check it out.
     To do that we select the public route table and then choose the Routes tab. The rule should be similar to the one shown below:
     
     ![Alt text](../images/multi-tier/route-table.png?raw=true)
+    
+    After the public route table is created, associate this route table to your two public subnets. You can do this on the subnet config tab "Route Table".
 
 Questions?
 
