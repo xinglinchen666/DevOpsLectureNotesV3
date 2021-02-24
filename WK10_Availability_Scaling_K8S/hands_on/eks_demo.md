@@ -1,5 +1,5 @@
 # EKS
-This is the handson to deploy ngnix app to EKS. So you can get a feel.
+This is the handson to deploy a simple app to EKS. So you can get a feel.
 
 # Prerequisite
 Have AWS account
